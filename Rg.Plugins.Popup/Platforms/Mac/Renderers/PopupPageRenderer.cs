@@ -3,8 +3,10 @@ using Foundation;
 using Rg.Plugins.Popup.MacOS.Extensions;
 using Rg.Plugins.Popup.MacOS.Renderers;
 using Rg.Plugins.Popup.Pages;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.MacOS;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Platform.MacOS;
 
 [assembly: ExportRenderer(typeof(PopupPage), typeof(PopupPageRenderer))]
 namespace Rg.Plugins.Popup.MacOS.Renderers

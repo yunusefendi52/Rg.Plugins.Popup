@@ -1,4 +1,4 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.Maui.Controls;
 
 [assembly: XmlnsDefinition("http://rotorgames.com", "Rg.Plugins.Popup.Animations")]
 [assembly: XmlnsDefinition("http://rotorgames.com", "Rg.Plugins.Popup.Pages")]

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
+
+using Microsoft.Maui;
 
 namespace Rg.Plugins.Popup.Extensions
 {

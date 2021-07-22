@@ -6,10 +6,12 @@ using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using Rg.Plugins.Popup.Windows.Renderers;
 using Rg.Plugins.Popup.Windows.Impl;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using XPlatform = Xamarin.Forms.Platform.UWP.Platform;
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
+using Microsoft.Maui.ControlsInternals;
+using XPlatform = Microsoft.Maui.Controls.Compatibility.UWP.Platform;
+using Microsoft.Maui.Controls.Platform.UWP;
 using Windows.UI.Core;
 using Rg.Plugins.Popup.Exceptions;
 

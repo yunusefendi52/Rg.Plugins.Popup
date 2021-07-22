@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using Rg.Plugins.Popup.Windows.Renderers;
 using Rg.Plugins.Popup.Windows.Impl;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
+using Microsoft.Maui.ControlsInternals;
 
 namespace Rg.Plugins.Popup
 {

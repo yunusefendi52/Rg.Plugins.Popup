@@ -7,9 +7,11 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
+using Microsoft.Maui.ControlsInternals;
+using Microsoft.Maui.Controls.Platform.UWP;
 using Size = Windows.Foundation.Size;
 using WinPopup = global::Windows.UI.Xaml.Controls.Primitives.Popup;
 

@@ -5,7 +5,9 @@ using Android.OS;
 using Rg.Plugins.Popup.Droid.Impl;
 using Rg.Plugins.Popup.Droid.Renderers;
 using Rg.Plugins.Popup.Services;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
 
 namespace Rg.Plugins.Popup
 {

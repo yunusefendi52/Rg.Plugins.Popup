@@ -4,8 +4,10 @@ using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Tizen.Impl;
 using Rg.Plugins.Popup.Tizen.Renderers;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Tizen;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Platform.Tizen;
 
 [assembly: Dependency(typeof(PopupPlatformTizen))]
 namespace Rg.Plugins.Popup.Tizen.Impl

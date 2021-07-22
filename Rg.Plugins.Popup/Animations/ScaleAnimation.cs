@@ -2,7 +2,8 @@
 using System.Threading.Tasks;
 using Rg.Plugins.Popup.Enums;
 using Rg.Plugins.Popup.Pages;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui;
 
 namespace Rg.Plugins.Popup.Animations
 {

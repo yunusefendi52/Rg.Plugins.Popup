@@ -2,7 +2,9 @@
 using Rg.Plugins.Popup.Converters.TypeConverters;
 using Rg.Plugins.Popup.Interfaces.Animations;
 using Rg.Plugins.Popup.Pages;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
+
+using Microsoft.Maui;
 
 using EasingTypeConverter = Rg.Plugins.Popup.Converters.TypeConverters.EasingTypeConverter;
 

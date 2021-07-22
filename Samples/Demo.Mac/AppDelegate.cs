@@ -1,6 +1,8 @@
 ﻿using AppKit;
 using Foundation;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
 using Xamarin.Forms.Platform.MacOS;
 
 namespace Demo.Mac

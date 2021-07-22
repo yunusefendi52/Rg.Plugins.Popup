@@ -1,7 +1,7 @@
 ﻿using System;
 using AppKit;
 using Foundation;
-using Xamarin.Forms.Platform.MacOS;
+using Microsoft.Maui.Controls.Platform.MacOS;
 
 namespace Rg.Plugins.Popup.MacOS.Platform
 {

@@ -6,7 +6,9 @@ using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.MacOS.Extensions;
 using Rg.Plugins.Popup.MacOS.Impl;
 using Rg.Plugins.Popup.Pages;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
 
 [assembly: Dependency(typeof(PopupPlatformMacOS))]
 namespace Rg.Plugins.Popup.MacOS.Impl

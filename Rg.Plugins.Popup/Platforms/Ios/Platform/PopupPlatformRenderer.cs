@@ -4,7 +4,7 @@ using Foundation;
 
 using UIKit;
 
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui.Controls.Platform.iOS;
 
 namespace Rg.Plugins.Popup.IOS.Platform
 {

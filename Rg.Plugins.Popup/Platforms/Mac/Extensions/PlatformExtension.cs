@@ -4,10 +4,12 @@ using AppKit;
 
 using Rg.Plugins.Popup.MacOS.Renderers;
 
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.MacOS;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Platform.MacOS;
 
-using XFPlatform = Xamarin.Forms.Platform.MacOS.Platform;
+using XFPlatform = Microsoft.Maui.Controls.Compatibility.MacOS.Platform;
 
 namespace Rg.Plugins.Popup.MacOS.Extensions
 {

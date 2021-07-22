@@ -6,9 +6,11 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.WPF.Renderers;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.Platform.WPF;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
+using Microsoft.Maui.ControlsInternals;
+using Microsoft.Maui.Controls.Platform.WPF;
 using Application = System.Windows.Application;
 using WinPopup = System.Windows.Controls.Primitives.Popup;
 

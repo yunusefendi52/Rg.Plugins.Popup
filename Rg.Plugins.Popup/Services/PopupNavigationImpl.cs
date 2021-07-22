@@ -8,7 +8,9 @@ using Rg.Plugins.Popup.Events;
 using Rg.Plugins.Popup.Exceptions;
 using Rg.Plugins.Popup.Pages;
 
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
+
+using Microsoft.Maui;
 
 namespace Rg.Plugins.Popup.Services
 {

@@ -16,10 +16,12 @@ using Rg.Plugins.Popup.Pages;
 
 using UIKit;
 
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Platform.iOS;
 
-using XFPlatform = Xamarin.Forms.Platform.iOS.Platform;
+using XFPlatform = Microsoft.Maui.Controls.Compatibility.iOS.Platform;
 
 [assembly: Dependency(typeof(PopupPlatformIos))]
 namespace Rg.Plugins.Popup.IOS.Impl

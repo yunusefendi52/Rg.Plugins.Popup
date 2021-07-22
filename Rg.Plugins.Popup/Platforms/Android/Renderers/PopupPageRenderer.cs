@@ -9,8 +9,10 @@ using Android.Widget;
 using Rg.Plugins.Popup.Droid.Gestures;
 using Rg.Plugins.Popup.Droid.Renderers;
 using Rg.Plugins.Popup.Pages;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Platform.Android;
 using Point = Xamarin.Forms.Point;
 using View = Android.Views.View;
 

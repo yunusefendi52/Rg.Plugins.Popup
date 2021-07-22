@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Rg.Plugins.Popup.Pages;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
+using Microsoft.Maui;
 
 namespace Rg.Plugins.Popup.Animations.Base
 {
@@ -12,7 +14,7 @@ namespace Rg.Plugins.Popup.Animations.Base
 
         public override void Preparing(View content, PopupPage page)
         {
-            if (HasBackgroundAnimation && page.BackgroundImage == null)
+            if (HasBackgroundAnimation && page.BackgroundImageSource == null)
             {
                 _backgroundColor = page.BackgroundColor;
                 page.BackgroundColor = GetColor(0);
@@ -21,7 +23,7 @@ namespace Rg.Plugins.Popup.Animations.Base
 
         public override void Disposing(View content, PopupPage page)
         {
-            if (HasBackgroundAnimation && page.BackgroundImage == null)
+            if (HasBackgroundAnimation && page.BackgroundImageSource == null)
             {
                 page.BackgroundColor = _backgroundColor;
             }
@@ -29,13 +31,14 @@ namespace Rg.Plugins.Popup.Animations.Base
 
         public override Task Appearing(View content, PopupPage page)
         {
-            if (HasBackgroundAnimation && page.BackgroundImage == null)
+            if (HasBackgroundAnimation && page.BackgroundImageSource == null)
             {
                 TaskCompletionSource<bool> task = new TaskCompletionSource<bool>();
+                _backgroundColor.ToRgba(out var r, out var g, out var b, out var a);
                 page.Animate("backgroundFade", d =>
                 {
                     page.BackgroundColor = GetColor(d);
-                }, 0, _backgroundColor.A, length: DurationIn, finished: (d, b) =>
+                }, 0, a, length: DurationIn, finished: (d, b) =>
                 {
                     task.SetResult(true);
                 });
@@ -48,16 +51,17 @@ namespace Rg.Plugins.Popup.Animations.Base
 
         public override Task Disappearing(View content, PopupPage page)
         {
-            if (HasBackgroundAnimation && page.BackgroundImage == null)
+            if (HasBackgroundAnimation && page.BackgroundImageSource == null)
             {
                 TaskCompletionSource<bool> task = new TaskCompletionSource<bool>();
 
                 _backgroundColor = page.BackgroundColor;
 
+                _backgroundColor.ToRgba(out var r, out var g, out var b, out var a);
                 page.Animate("backgroundFade", d =>
                 {
                     page.BackgroundColor = GetColor(d);
-                }, _backgroundColor.A, 0, length: DurationOut, finished: (d, b) =>
+                }, a, 0, length: DurationOut, finished: (d, b) =>
                 {
                     task.SetResult(true);
                 });
@@ -70,7 +74,7 @@ namespace Rg.Plugins.Popup.Animations.Base
 
         private Color GetColor(double transparent)
         {
-            return new Color(_backgroundColor.R, _backgroundColor.G, _backgroundColor.B, transparent);
+            return _backgroundColor.WithAlpha((float)transparent);
         }
     }
 }

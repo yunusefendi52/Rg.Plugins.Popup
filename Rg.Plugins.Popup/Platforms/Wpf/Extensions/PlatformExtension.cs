@@ -1,6 +1,8 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Platform.WPF;
-using XFPlatform = Xamarin.Forms.Platform.WPF.Platform;
+﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Platform.WPF;
+using XFPlatform = Microsoft.Maui.Controls.Compatibility.WPF.Platform;
 
 namespace Rg.Plugins.Popup.WPF.Extensions
 {

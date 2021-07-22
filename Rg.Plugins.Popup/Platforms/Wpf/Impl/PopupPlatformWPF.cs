@@ -5,9 +5,11 @@ using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.WPF.Extensions;
 using Rg.Plugins.Popup.WPF.Impl;
 using Rg.Plugins.Popup.WPF.Renderers;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using XPlatform = Xamarin.Forms.Platform.WPF.Platform;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
+using Microsoft.Maui.ControlsInternals;
+using XPlatform = Microsoft.Maui.Controls.Compatibility.WPF.Platform;
 
 [assembly: Dependency(typeof(PopupPlatformWPF))]
 namespace Rg.Plugins.Popup.WPF.Impl

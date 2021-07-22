@@ -18,7 +18,9 @@ using Rg.Plugins.Popup.Exceptions;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui;
 
 using XApplication = Xamarin.Forms.Application;
 
