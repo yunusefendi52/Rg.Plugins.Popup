@@ -38,14 +38,8 @@
                         Margin="10"
                         HeightRequest="150"
                         HorizontalOptions="Center"
-                        WidthRequest="150">
-                        <Image.Source>
-                            <OnPlatform
-                                x:TypeArguments="ImageSource"
-                                Android="github_octocat.png"
-                                WinPhone="Assets/github_octocat.png"
-                                iOS="github_octocat.png" />
-                        </Image.Source>
+                        WidthRequest="150"
+                        Source="github_octocat">
                     </Image>
                     <Entry
                         x:Name="UsernameEntry"
@@ -65,13 +59,6 @@
                         Clicked="OnLogin"
                         HorizontalOptions="Fill"
                         Text="Login">
-                        <Button.HeightRequest>
-                            <OnPlatform
-                                x:TypeArguments="x:Double"
-                                Android="50"
-                                WinPhone="30"
-                                iOS="30" />
-                        </Button.HeightRequest>
                     </Button>
                 </StackLayout>
             </Frame>
@@ -82,14 +69,8 @@
                 <Image
                     x:Name="CloseImage"
                     HeightRequest="30"
-                    WidthRequest="30">
-                    <Image.Source>
-                        <OnPlatform
-                            x:TypeArguments="ImageSource"
-                            Android="close_circle_button.png"
-                            WinPhone="Assets/close_circle_button.png"
-                            iOS="close_circle_button.png" />
-                    </Image.Source>
+                    WidthRequest="30"
+                    Source="close_circle_button">
                 </Image>
             </ContentView>
         </AbsoluteLayout>

@@ -24,7 +24,7 @@ namespace Demo.Pages
 
         private async void OnFilePicker(object sender, EventArgs e)
         {
-            var file = await Xamarin.Essentials.FilePicker.PickAsync();
+            // var file = await Xamarin.Essentials.FilePicker.PickAsync();
         }
     }
 }

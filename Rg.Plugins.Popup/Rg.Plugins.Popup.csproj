@@ -1,15 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!--<PropertyGroup Condition=" '$(TargetsToBuild)' == 'All' ">-->
+
   <PropertyGroup>
-    <!--<TargetFrameworks>netstandard2.0;xamarin.ios10;xamarin.mac20;xamarin.tvos10;xamarin.watchos10;monoandroid9.0;monoandroid10.0;tizen80;netcoreapp3.1;net472</TargetFrameworks>-->
-    
-    <!-- <TargetFrameworks>net6.0-ios;net6.0-android;net6.0-maccatalyst;net6.0-windows10.0.19041</TargetFrameworks> -->
-    <TargetFrameworks>net6.0;net6.0-android</TargetFrameworks>
-    <SingleProject>true</SingleProject>
-    <RuntimeIdentifier Condition="'$(TargetFramework)' == 'net6.0-ios'">iossimulator-x64</RuntimeIdentifier>
-    <RuntimeIdentifier Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">maccatalyst-x64</RuntimeIdentifier>
-    <InvariantGlobalization Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">true</InvariantGlobalization>
-  </PropertyGroup>
+		<!-- <TargetFrameworks>net6.0-ios;net6.0-android;net6.0-maccatalyst</TargetFrameworks> -->
+		<TargetFrameworks>net6.0-android</TargetFrameworks>
+		<UseMaui>true</UseMaui>
+	</PropertyGroup>
+
+  <PropertyGroup>
+		<InvariantGlobalization Condition="$(TargetFramework.Contains('-maccatalyst'))">true</InvariantGlobalization>
+		<RuntimeIdentifier Condition="$(TargetFramework.Contains('-ios'))">iossimulator-x64</RuntimeIdentifier>
+		<RuntimeIdentifier Condition="$(TargetFramework.Contains('-maccatalyst'))">maccatalyst-x64</RuntimeIdentifier>
+		<UseInterpreter Condition="$(TargetFramework.Contains('-android'))">False</UseInterpreter>
+	</PropertyGroup>
 
   <!--<PropertyGroup Condition=" '$(TargetsToBuild)' != 'All' ">
     <TargetFrameworks Condition=" '$(TargetsToBuild)' == 'Android' ">netstandard2.0;monoandroid10.0;monoandroid9.0;</TargetFrameworks>
@@ -23,137 +25,7 @@
     <RootNamespace>Rg.Plugins.Popup</RootNamespace>
     <PackageId>Rg.Plugins.Popup</PackageId>
     <Description>Plugin for Xamarin forms. Allows you to open any page as a popup.</Description>
-    <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
-    <UseWPF Condition=" '$(OS)' == 'Windows_NT' ">true</UseWPF>
+    <!-- <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck> -->
+    <!-- <UseWPF Condition=" '$(OS)' == 'Windows_NT' ">true</UseWPF> -->
   </PropertyGroup>
-
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('uap')) And '$(OS)' == 'Windows_NT'">
-    <GenerateLibraryLayout>true</GenerateLibraryLayout>
-  </PropertyGroup>
-  
-  <ItemGroup>
-    <Compile Remove="Platforms\**\*.cs" />
-    <None Include="Platforms\**\*.cs" />
-    <None Include="Resources\*.cs" />
-    <Compile Remove="Resources\*.cs" />
-    <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
-    <None Include="readme.txt" pack="true" PackagePath="." />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
-    <None Remove="Platforms\Netstandard\**\*.cs" />
-    <Compile Include="Platforms\Netstandard\**\*.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) And '$(OS)' == 'Windows_NT' ">
-    <None Remove="Platforms\Net\**\*.cs" />
-    <None Remove="Platforms\Wpf\**\*.cs" />
-    <Compile Include="Platforms\Net\**\*.cs" />
-    <Compile Include="Platforms\Wpf\**\*.cs" />
-    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="4.5.0.657" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'!='net6.0'">
-    <None Remove="Platforms\Shared\**\*.cs" />
-    <Compile Include="Platforms\Shared\**\*.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
-    <Compile Include="Platforms\Windows\**\*.cs" />
-    <Compile Include="Platforms\Uap\**\*.cs" />
-    <Page Include="Platforms\Uap\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
-    <None Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
-    <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
-    <None Remove="Platforms\Apple\**\*.cs" />
-    <None Remove="Platforms\Ios\**\*.cs" />
-    <None Remove="Platforms\Xamarin\**\*.cs" />
-    <Compile Include="Platforms\Apple\**\*.cs" />
-    <Compile Include="Platforms\Ios\**\*.cs" />
-    <Compile Include="Platforms\Xamarin\**\*.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.mac')) ">
-    <None Remove="Platforms\Apple\**\*.cs" />
-    <None Remove="Platforms\Mac\**\*.cs" />
-    <None Remove="Platforms\Xamarin\**\*.cs" />
-    <Compile Include="Platforms\Apple\**\*.cs" />
-    <Compile Include="Platforms\Mac\**\*.cs" />
-    <Compile Include="Platforms\Xamarin\**\*.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.tvos')) ">
-    <None Remove="Platforms\Apple\**\*.cs" />
-    <None Remove="Platforms\Tvos\**\*.cs" />
-    <None Remove="Platforms\Xamarin\**\*.cs" />
-    <Compile Include="Platforms\Apple\**\*.cs" />
-    <Compile Include="Platforms\Tvos\**\*.cs" />
-    <Compile Include="Platforms\Xamarin\**\*.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.watchos')) ">
-    <None Remove="Platforms\Apple\**\*.cs" />
-    <None Remove="Platforms\Watchos\**\*.cs" />
-    <None Remove="Platforms\Xamarin\**\*.cs" />
-    <Compile Include="Platforms\Apple\**\*.cs" />
-    <Compile Include="Platforms\Watchos\**\*.cs" />
-    <Compile Include="Platforms\Xamarin\**\*.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0-android')) ">
-    <None Remove="Platforms\Android\**\*.cs" />
-    <None Remove="Platforms\Xamarin\**\*.cs" />
-    <Compile Include="Platforms\Android\**\*.cs" />
-    <Compile Include="Platforms\Xamarin\**\*.cs" />
-    <AndroidResource Include="Resources\**\*.xml" SubType="Designer" Generator="MSBuild:UpdateAndroidResources" />
-    <AndroidResource Include="Resources\**\*.json" Generator="MSBuild:UpdateAndroidResources" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
-    <None Remove="Platforms\Tizen\**\*.cs" />
-    <None Remove="Platforms\Xamarin\**\*.cs" />
-    <Compile Include="Platforms\Tizen\**\*.cs" />
-    <Compile Include="Platforms\Xamarin\**\*.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Maui" Version="6.0.100-preview.5.794" />
-    <!-- <PackageReference Include="Microsoft.Maui.Controls.Compatibility.Android.FormsViewGroup" Version="6.0.100-preview.5.798"/>
-    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="6.0.100-preview.5.798"/>
-    <PackageReference Include="Microsoft.Maui.Controls.Build.Tasks" Version="6.0.100-preview.5.798"/>
-    <PackageReference Include="Microsoft.Maui.Controls" Version="6.0.100-preview.5.798"/>
-    <PackageReference Include="Microsoft.Maui.Controls.Xaml" Version="6.0.100-preview.5.798"/>
-    <PackageReference Include="Microsoft.Maui.Core" Version="6.0.100-preview.5.798"/> -->
-    <!-- <PackageReference Include="Microsoft.Maui.Essentials" Version="6.0.100-preview.5.798"/> -->
-    <!-- <PackageReference Include="Microsoft.Maui.Resizetizer" Version="6.0.100-preview.5.798"/> -->
-  </ItemGroup>
-
-  <!-- <ItemGroup>
-    <PackageReference Include="Microsoft.Maui.Controls.Build.Tasks" Version="6.0.100-preview.4.634" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="6.0.100-preview.4.634" />
-    <PackageReference Include="Microsoft.Maui.Controls.Xaml" Version="6.0.100-preview.4.634" />
-    <PackageReference Include="Microsoft.Maui.Core" Version="6.0.100-preview.4.634" />
-    <PackageReference Include="Microsoft.Maui.Essentials" Version="6.0.100-preview.4.634" />
-    <PackageReference Include="Microsoft.Maui.Resizetizer" Version="6.0.100-preview.4.634" />
-  </ItemGroup> -->
-
-  <!-- There is something not working correctly w.r.t. multi-targetting so adding
-    direct reference seems to help get the build to work -->
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.mac')) ">
-    <Reference Include="netstandard" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
-
-  <!-- Workaround for this bug (replace the analyzer name with the one you need to exclude (filename only, no extension) -->
-  <Target Name="RemoveLoggingAnalyzer" BeforeTargets="CoreCompile">
-    <ItemGroup>
-      <Analyzer Remove="@(Analyzer)" Condition="%(FileName) == 'Microsoft.Extensions.Logging.Generators'" />
-      <!-- <Analyzer Remove="@(Analyzer)" Condition="%(FileName) == 'Microsoft.Maui.Resizetizer'" /> -->
-    </ItemGroup>
-  </Target>
 </Project>

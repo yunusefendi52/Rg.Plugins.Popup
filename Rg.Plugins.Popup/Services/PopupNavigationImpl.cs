@@ -28,21 +28,7 @@ namespace Rg.Plugins.Popup.Services
 
         public event EventHandler<PopupNavigationEventArgs>? Popped;
 
-        private static IPopupPlatform PopupPlatform
-        {
-            get
-            {
-                var popupPlatform = DependencyService.Get<IPopupPlatform>();
-
-                if (popupPlatform == null)
-                    throw new RGInitialisationException("You MUST install Rg.Plugins.Popup to each project and call Rg.Plugins.Popup.Popup.Init(); prior to using it.\nSee more info: " + Config.InitializationDescriptionUrl);
-
-                if (!popupPlatform.IsInitialized)
-                    throw new RGInitialisationException("You MUST call Rg.Plugins.Popup.Popup.Init(); prior to using it.\nSee more info: " + Config.InitializationDescriptionUrl);
-
-                return popupPlatform;
-            }
-        }
+        private static IPopupPlatform PopupPlatform = new Rg.Plugins.Popup.Droid.Impl.PopupPlatformDroid();
 
         public IReadOnlyList<PopupPage> PopupStack => _popupStack;
 

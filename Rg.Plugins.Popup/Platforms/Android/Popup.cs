@@ -57,10 +57,11 @@ namespace Rg.Plugins.Popup
 
         private static void LinkAssemblies()
         {
+            // DependencyService.RegisterSingleton(new PopupPlatformDroid());
             if (false.Equals(true))
             {
-                var i = new PopupPlatformDroid();
-                var r = new PopupPageRenderer(null!);
+                // var i = new PopupPlatformDroid();
+                // var r = new PopupPageRenderer(null!);
             }
         }
     }
