@@ -1,10 +1,14 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+<Project Sdk="Microsoft.NET.Sdk">
   <!--<PropertyGroup Condition=" '$(TargetsToBuild)' == 'All' ">-->
   <PropertyGroup>
     <!--<TargetFrameworks>netstandard2.0;xamarin.ios10;xamarin.mac20;xamarin.tvos10;xamarin.watchos10;monoandroid9.0;monoandroid10.0;tizen80;netcoreapp3.1;net472</TargetFrameworks>-->
-    <TargetFrameworks>net6.0-android</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">uap10.0.17763;$(TargetFrameworks)</TargetFrameworks>
-    <AndroidSupportedAbis>arm64;x86</AndroidSupportedAbis>
+    
+    <!-- <TargetFrameworks>net6.0-ios;net6.0-android;net6.0-maccatalyst;net6.0-windows10.0.19041</TargetFrameworks> -->
+    <TargetFrameworks>net6.0;net6.0-android</TargetFrameworks>
+    <SingleProject>true</SingleProject>
+    <RuntimeIdentifier Condition="'$(TargetFramework)' == 'net6.0-ios'">iossimulator-x64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">maccatalyst-x64</RuntimeIdentifier>
+    <InvariantGlobalization Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">true</InvariantGlobalization>
   </PropertyGroup>
 
   <!--<PropertyGroup Condition=" '$(TargetsToBuild)' != 'All' ">
@@ -116,7 +120,24 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui" Version="6.0.100-preview.5.798" />
+    <!-- <PackageReference Include="Microsoft.Maui.Controls.Compatibility.Android.FormsViewGroup" Version="6.0.100-preview.5.798"/>
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="6.0.100-preview.5.798"/>
+    <PackageReference Include="Microsoft.Maui.Controls.Build.Tasks" Version="6.0.100-preview.5.798"/>
+    <PackageReference Include="Microsoft.Maui.Controls" Version="6.0.100-preview.5.798"/>
+    <PackageReference Include="Microsoft.Maui.Controls.Xaml" Version="6.0.100-preview.5.798"/>
+    <PackageReference Include="Microsoft.Maui.Core" Version="6.0.100-preview.5.798"/> -->
+    <!-- <PackageReference Include="Microsoft.Maui.Essentials" Version="6.0.100-preview.5.798"/> -->
+    <!-- <PackageReference Include="Microsoft.Maui.Resizetizer" Version="6.0.100-preview.5.798"/> -->
   </ItemGroup>
+
+  <!-- <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls.Build.Tasks" Version="6.0.100-preview.4.634" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="6.0.100-preview.4.634" />
+    <PackageReference Include="Microsoft.Maui.Controls.Xaml" Version="6.0.100-preview.4.634" />
+    <PackageReference Include="Microsoft.Maui.Core" Version="6.0.100-preview.4.634" />
+    <PackageReference Include="Microsoft.Maui.Essentials" Version="6.0.100-preview.4.634" />
+    <PackageReference Include="Microsoft.Maui.Resizetizer" Version="6.0.100-preview.4.634" />
+  </ItemGroup> -->
 
   <!-- There is something not working correctly w.r.t. multi-targetting so adding
     direct reference seems to help get the build to work -->
@@ -132,7 +153,7 @@
   <Target Name="RemoveLoggingAnalyzer" BeforeTargets="CoreCompile">
     <ItemGroup>
       <Analyzer Remove="@(Analyzer)" Condition="%(FileName) == 'Microsoft.Extensions.Logging.Generators'" />
-      <Analyzer Remove="@(Analyzer)" Condition="%(FileName) == 'Microsoft.Maui.Resizetizer'" />
+      <!-- <Analyzer Remove="@(Analyzer)" Condition="%(FileName) == 'Microsoft.Maui.Resizetizer'" /> -->
     </ItemGroup>
   </Target>
 </Project>

@@ -9,18 +9,20 @@ using Android.Widget;
 using Rg.Plugins.Popup.Droid.Gestures;
 using Rg.Plugins.Popup.Droid.Renderers;
 using Rg.Plugins.Popup.Pages;
+using Point = Microsoft.Maui.Graphics.Point;
+using Rectangle = Microsoft.Maui.Graphics.Rectangle;
+using View = Android.Views.View;
+using ACompatibility = Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui;
-using Microsoft.Maui.Controls.Platform.Android;
-using Point = Xamarin.Forms.Point;
-using View = Android.Views.View;
+using ContextExtensions = Microsoft.Maui.Controls.Compatibility.Platform.Android.ContextExtensions;
 
-[assembly: ExportRenderer(typeof(PopupPage), typeof(PopupPageRenderer))]
 namespace Rg.Plugins.Popup.Droid.Renderers
 {
     [Preserve(AllMembers = true)]
-    public class PopupPageRenderer : PageRenderer
+    public class PopupPageRenderer : ACompatibility.PageRenderer
     {
         private readonly RgGestureDetectorListener _gestureDetectorListener;
         private readonly GestureDetector _gestureDetector;
@@ -81,15 +83,15 @@ namespace Rg.Plugins.Popup.Droid.Renderers
 
                 if (h - visibleRect.Bottom > windowInsets.StableInsetBottom)
                 {
-                    keyboardOffset = Context.FromPixels(h - visibleRect.Bottom);
+                    keyboardOffset = ContextExtensions.FromPixels(Context, h - visibleRect.Bottom);
                 }
 
                 systemPadding = new Thickness
                 {
-                    Left = Context.FromPixels(windowInsets.SystemWindowInsetLeft),
-                    Top = Context.FromPixels(windowInsets.SystemWindowInsetTop),
-                    Right = Context.FromPixels(windowInsets.SystemWindowInsetRight),
-                    Bottom = Context.FromPixels(bottomPadding)
+                    Left = ContextExtensions.FromPixels(Context, windowInsets.SystemWindowInsetLeft),
+                    Top = ContextExtensions.FromPixels(Context, windowInsets.SystemWindowInsetTop),
+                    Right = ContextExtensions.FromPixels(Context, windowInsets.SystemWindowInsetRight),
+                    Bottom = ContextExtensions.FromPixels(Context, bottomPadding)
                 };
             }
             else if (Build.VERSION.SdkInt < BuildVersionCodes.M && decoreView != null)
@@ -105,15 +107,15 @@ namespace Rg.Plugins.Popup.Droid.Renderers
                 if (visibleRect.Bottom < screenSize.Y)
                 {
                     keyboardHeight = screenSize.Y - visibleRect.Bottom;
-                    keyboardOffset = Context.FromPixels(decoreHeight - visibleRect.Bottom);
+                    keyboardOffset = ContextExtensions.FromPixels(Context, decoreHeight - visibleRect.Bottom);
                 }
 
                 systemPadding = new Thickness
                 {
-                    Left = Context.FromPixels(visibleRect.Left),
-                    Top = Context.FromPixels(visibleRect.Top),
-                    Right = Context.FromPixels(decoreWidht - visibleRect.Right),
-                    Bottom = Context.FromPixels(decoreHeight - visibleRect.Bottom - keyboardHeight)
+                    Left = ContextExtensions.FromPixels(Context, visibleRect.Left),
+                    Top = ContextExtensions.FromPixels(Context, visibleRect.Top),
+                    Right = ContextExtensions.FromPixels(Context, decoreWidht - visibleRect.Right),
+                    Bottom = ContextExtensions.FromPixels(Context, decoreHeight - visibleRect.Bottom - keyboardHeight)
                 };
             }
             else
@@ -125,7 +127,7 @@ namespace Rg.Plugins.Popup.Droid.Renderers
             CurrentElement.SetValue(PopupPage.KeyboardOffsetProperty, keyboardOffset);
 
             if (changed)
-                CurrentElement.Layout(new Rectangle(Context.FromPixels(l), Context.FromPixels(t), Context.FromPixels(r), Context.FromPixels(b)));
+                CurrentElement.Layout(new Rectangle(ContextExtensions.FromPixels(Context, l), ContextExtensions.FromPixels(Context, t), ContextExtensions.FromPixels(Context, r), ContextExtensions.FromPixels(Context, b)));
             else
                 CurrentElement.ForceLayout();
 
@@ -138,7 +140,7 @@ namespace Rg.Plugins.Popup.Droid.Renderers
 
         protected override void OnAttachedToWindow()
         {
-            Context.HideKeyboard(((Activity?)Context)?.Window?.DecorView);
+            ContextExtensions.HideKeyboard(Context, ((Activity?)Context)?.Window?.DecorView);
             base.OnAttachedToWindow();
         }
 
@@ -146,7 +148,7 @@ namespace Rg.Plugins.Popup.Droid.Renderers
         {
             Device.StartTimer(TimeSpan.FromMilliseconds(0), () =>
             {
-                Popup.Context.HideKeyboard(((Activity?)Popup.Context)?.Window?.DecorView);
+                ContextExtensions.HideKeyboard(Popup.Context, ((Activity?)Popup.Context)?.Window?.DecorView);
                 return false;
             });
             base.OnDetachedFromWindow();
@@ -183,7 +185,7 @@ namespace Rg.Plugins.Popup.Droid.Renderers
             if (currentFocus1 is EditText)
             {
                 View? currentFocus2 = ((Activity?)Context)?.CurrentFocus;
-                if (currentFocus1 == currentFocus2 && _downPosition.Distance(new Point(e.RawX, e.RawY)) <= Context.ToPixels(20.0) && !(DateTime.UtcNow - _downTime > TimeSpan.FromMilliseconds(200.0)))
+                if (currentFocus1 == currentFocus2 && _downPosition.Distance(new Point(e.RawX, e.RawY)) <= ContextExtensions.ToPixels(Context, 20.0) && !(DateTime.UtcNow - _downTime > TimeSpan.FromMilliseconds(200.0)))
                 {
                     var location = new int[2];
                     currentFocus1.GetLocationOnScreen(location);
@@ -191,7 +193,7 @@ namespace Rg.Plugins.Popup.Droid.Renderers
                     var num2 = e.RawY + currentFocus1.Top - location[1];
                     if (!new Rectangle(currentFocus1.Left, currentFocus1.Top, currentFocus1.Width, currentFocus1.Height).Contains(num1, num2))
                     {
-                        Context.HideKeyboard(currentFocus1);
+                        ContextExtensions.HideKeyboard(Context, currentFocus1);
                         currentFocus1.ClearFocus();
                     }
                 }

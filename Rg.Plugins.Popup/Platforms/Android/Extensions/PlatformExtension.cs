@@ -1,8 +1,7 @@
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui;
-using Microsoft.Maui.Controls.Platform.Android;
-using XFPlatform = Microsoft.Maui.Controls.Compatibility.Android.Platform;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using XFPlatform = Microsoft.Maui.Controls.Compatibility.Platform.Android.Platform;
 
 namespace Rg.Plugins.Popup.Droid.Extensions
 {

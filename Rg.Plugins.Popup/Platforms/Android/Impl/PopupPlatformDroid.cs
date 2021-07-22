@@ -22,7 +22,7 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui;
 
-using XApplication = Xamarin.Forms.Application;
+using XApplication = Microsoft.Maui.Controls.Application;
 
 [assembly: Dependency(typeof(PopupPlatformDroid))]
 namespace Rg.Plugins.Popup.Droid.Impl
