@@ -1,13 +1,14 @@
-﻿using System;
+﻿using System.ComponentModel;
+using System;
 using Microsoft.Maui.Controls;
-
 using Microsoft.Maui;
+using System.Globalization;
 
 namespace Rg.Plugins.Popup.Converters.TypeConverters
 {
     public class UintTypeConverter : TypeConverter
     {
-        public override object ConvertFromInvariantString(string value)
+        public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
         {
             try
             {

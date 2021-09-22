@@ -5,6 +5,7 @@ using Rg.Plugins.Popup.Pages;
 using Microsoft.Maui.Controls;
 
 using Microsoft.Maui;
+using TypeConverter = System.ComponentModel.TypeConverterAttribute;
 
 using EasingTypeConverter = Rg.Plugins.Popup.Converters.TypeConverters.EasingTypeConverter;
 

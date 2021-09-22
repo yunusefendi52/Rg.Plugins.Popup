@@ -17,7 +17,7 @@ namespace Rg.Plugins.Popup.Extensions
 
             while (queue.Count > 0)
             {
-                ReadOnlyCollection<Element> children = ((IElementController)queue.Dequeue()).LogicalChildren;
+                var children = ((IElementController)queue.Dequeue()).LogicalChildren;
                 for (var i = 0; i < children.Count; i++)
                 {
                     Element child = children[i];
