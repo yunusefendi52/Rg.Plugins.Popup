@@ -29,20 +29,15 @@ namespace Demo
                 })
                 .ConfigureLifecycleEvents(lifecycle =>
                 {
-                    Android.Util.Log.Info("DemoPopupMaui", "lifecycle init");
-
                     lifecycle.AddAndroid(d =>
                     {
                         d.OnCreate((a, b) =>
                         {
-                            Android.Util.Log.Info("DemoPopupMaui", "OnCreate startup init");
-                            // Rg.Plugins.Popup.Popup.Init(a);
                         });
                     });
                 })
                 .ConfigureMauiHandlers(handlers =>
                 {
-                    Android.Util.Log.Info("DemoPopupMaui", "AddCompatibilityRenderer");
                     // handlers.AddCompatibilityRenderers(Microsoft.Maui.Controls.Device.GetAssemblies());
                     handlers.AddCompatibilityRenderer(typeof(PopupPage), typeof(PopupPageRenderer));
                 });
