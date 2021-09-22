@@ -58,9 +58,12 @@ namespace Rg.Plugins.Popup.Droid.Impl
             {
                 if (page.AndroidTalkbackAccessibilityWorkaround)
                 {
-                    var NavCount = XApplication.Current.MainPage.Navigation.NavigationStack.Count;
-                    Page currentPage = XApplication.Current.MainPage.Navigation.NavigationStack[NavCount - 1];
-                    currentPage.GetOrCreateRenderer().View.ImportantForAccessibility = ImportantForAccessibility.NoHideDescendants;
+                    if (XApplication.Current.MainPage.Navigation.NavigationStack.Count > 0)
+                    {
+                        var NavCount = XApplication.Current.MainPage.Navigation.NavigationStack.Count;
+                        Page currentPage = XApplication.Current.MainPage.Navigation.NavigationStack[NavCount - 1];
+                        currentPage.GetOrCreateRenderer().View.ImportantForAccessibility = ImportantForAccessibility.NoHideDescendants;
+                    }
                 }
             }
         }

@@ -29,9 +29,10 @@
                 Margin="15"
                 BackgroundColor="White"
                 HorizontalOptions="Center">
+                    <!--IsClippedToBounds="True"-->
+                    <!-- https://github.com/dotnet/maui/issues/2334 -->
                 <StackLayout
                     Padding="10,5"
-                    IsClippedToBounds="True"
                     Spacing="3">
                     <Image
                         x:Name="OctocatImage"
