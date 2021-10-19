@@ -24,63 +24,63 @@ namespace Demo.Pages
 
         private async void OnOpenPupup(object sender, EventArgs e)
         {
-            await PopupNavigation.Instance.PushAsync(_loginPopup);
+            await PopupNavigation.Instance.PushAsync(_loginPopup, false);
         }
 
         private async void OnUserAnimationPupup(object sender, EventArgs e)
         {
             var page = new UserAnimationPage();
 
-            await PopupNavigation.Instance.PushAsync(page);
+            await PopupNavigation.Instance.PushAsync(page, false);
         }
 
         private async void OnOpenSystemOffsetPage(object sender, EventArgs e)
         {
             var page = new SystemOffsetPage();
 
-            await PopupNavigation.Instance.PushAsync(page);
+            await PopupNavigation.Instance.PushAsync(page, false);
         }
 
         private async void OnOpenListViewPage(object sender, EventArgs e)
         {
             var page = new ListViewPage();
 
-            await PopupNavigation.Instance.PushAsync(page);
+            await PopupNavigation.Instance.PushAsync(page, false);
         }
 
         private async void OnOpenUserAnimationFromResource(object sender, EventArgs e)
         {
             var page = new UserAnimationFromResourcePage();
 
-            await PopupNavigation.Instance.PushAsync(page);
+            await PopupNavigation.Instance.PushAsync(page, false);
         }
 
         private async void OnOpenUserAnimationFromStyle(object sender, EventArgs e)
         {
             var page = new UserAnimationFromStylePage();
 
-            await PopupNavigation.Instance.PushAsync(page);
+            await PopupNavigation.Instance.PushAsync(page, false);
         }
 
         private async void OnOpenSettingsPage(object sender, EventArgs e)
         {
             var page = new SettingsPage();
 
-            await PopupNavigation.Instance.PushAsync(page);
+            await PopupNavigation.Instance.PushAsync(page, false);
         }
         
         private async void OnOpenMvvmPage(object sender, EventArgs e)
         {
             var page = new MvvmPage();
             
-            await PopupNavigation.Instance.PushAsync(page);
+            await PopupNavigation.Instance.PushAsync(page, false);
         }
 
         private async void OnTestCurrentViewController(object sender, EventArgs e)
         {
             var page = new TestCurrentViewController(0);
 
-            await PopupNavigation.Instance.PushAsync(page);
+            await PopupNavigation.Instance.PushAsync(page, false);
         }
     }
 }

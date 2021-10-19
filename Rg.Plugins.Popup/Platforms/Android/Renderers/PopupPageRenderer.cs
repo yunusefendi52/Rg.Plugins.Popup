@@ -18,11 +18,12 @@ using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui;
 using ContextExtensions = Microsoft.Maui.Controls.Compatibility.Platform.Android.ContextExtensions;
+using System.ComponentModel;
 
 namespace Rg.Plugins.Popup.Droid.Renderers
 {
     [Preserve(AllMembers = true)]
-    public class PopupPageRenderer : ACompatibility.PageRenderer
+    public class PopupPageRenderer : PageRenderer
     {
         private readonly RgGestureDetectorListener _gestureDetectorListener;
         private readonly GestureDetector _gestureDetector;
@@ -49,9 +50,12 @@ namespace Rg.Plugins.Popup.Droid.Renderers
             {
                 _disposed = true;
 
-                _gestureDetectorListener.Clicked -= OnBackgroundClick;
-                _gestureDetectorListener.Dispose();
-                _gestureDetector.Dispose();
+                if (_gestureDetectorListener != null)
+                {
+                    _gestureDetectorListener.Clicked -= OnBackgroundClick;
+                    _gestureDetectorListener.Dispose();
+                }
+                _gestureDetector?.Dispose();
             }
 
             base.Dispose(disposing);
@@ -76,7 +80,7 @@ namespace Rg.Plugins.Popup.Droid.Renderers
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M && RootWindowInsets != null)
             {
-                var h = b-t;
+                var h = b - t;
 
                 var windowInsets = RootWindowInsets;
                 var bottomPadding = Math.Min(windowInsets.StableInsetBottom, windowInsets.SystemWindowInsetBottom);
@@ -127,7 +131,10 @@ namespace Rg.Plugins.Popup.Droid.Renderers
             CurrentElement.SetValue(PopupPage.KeyboardOffsetProperty, keyboardOffset);
 
             if (changed)
+            {
                 CurrentElement.Layout(new Rectangle(ContextExtensions.FromPixels(Context, l), ContextExtensions.FromPixels(Context, t), ContextExtensions.FromPixels(Context, r), ContextExtensions.FromPixels(Context, b)));
+                CurrentElement.ForceLayout();
+            }
             else
                 CurrentElement.ForceLayout();
 
@@ -253,4 +260,156 @@ namespace Rg.Plugins.Popup.Droid.Renderers
 
         #endregion
     }
+
+    public class PageRenderer : VisualElementRenderer<Page>
+	{
+		public PageRenderer(Context context) : base(context)
+		{
+		}
+
+		public override bool OnTouchEvent(MotionEvent e)
+		{
+			base.OnTouchEvent(e);
+
+			return true;
+		}
+
+		IPageController PageController => Element as IPageController;
+
+		double _previousHeight;
+		bool _isDisposed = false;
+
+		protected override void Dispose(bool disposing)
+		{
+			if (_isDisposed)
+				return;
+
+			if (disposing)
+			{
+				PageController?.SendDisappearing();
+			}
+
+			_isDisposed = true;
+			base.Dispose(disposing);
+		}
+
+		protected override void OnAttachedToWindow()
+		{
+			base.OnAttachedToWindow();
+			// var pageContainer = Parent as PageContainer;
+			// if (pageContainer != null && (pageContainer.IsInFragment || pageContainer.Visibility == ViewStates.Gone))
+			// 	return;
+			PageController.SendAppearing();
+		}
+
+		protected override void OnDetachedFromWindow()
+		{
+			base.OnDetachedFromWindow();
+			// var pageContainer = Parent as PageContainer;
+			// if (pageContainer != null && pageContainer.IsInFragment)
+			// 	return;
+			PageController.SendDisappearing();
+		}
+
+		// protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
+		// {
+		// 	base.OnElementChanged(e);
+
+		// 	// if (Id == NoId)
+		// 	// {
+		// 	// 	Id = Platform.GenerateViewId();
+		// 	// }
+
+		// 	UpdateBackground(false);
+
+		// 	// if (!Flags.IsAccessibilityExperimentalSet())
+		// 	// 	Clickable = true;
+		// }
+
+		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			base.OnElementPropertyChanged(sender, e);
+
+			if (e.PropertyName == Page.BackgroundImageSourceProperty.PropertyName)
+				UpdateBackground(true);
+			else if (e.PropertyName == VisualElement.BackgroundColorProperty.PropertyName)
+				UpdateBackground(false);
+			else if (e.PropertyName == VisualElement.BackgroundProperty.PropertyName)
+				UpdateBackground(false);
+			else if (e.PropertyName == VisualElement.HeightProperty.PropertyName)
+				UpdateHeight();
+		}
+
+		void UpdateHeight()
+		{
+			// Handle size changes because of the soft keyboard (there's probably a more elegant solution to this)
+
+			// This is only necessary if:
+			// - we're navigating back from a page where the soft keyboard was open when the user hit the Navigation Bar 'back' button
+			// - the Application's content height has changed because WindowSoftInputModeAdjust was set to Resize
+			// - the height has increased (in other words, the last layout was with the keyboard open, and now it's closed)
+			var newHeight = Element.Height;
+
+			if (_previousHeight > 0 && newHeight > _previousHeight)
+			{
+				var nav = Element.Navigation;
+
+				// This update check will fire for all the pages on the stack, but we only need to request a layout for the top one
+				if (nav?.NavigationStack != null && nav.NavigationStack.Count > 0 && Element == nav.NavigationStack[nav.NavigationStack.Count - 1])
+				{
+					// The Forms layout stuff is already correct, we just need to force Android to catch up
+					RequestLayout();
+				}
+			}
+
+			// Cache the height for next time
+			_previousHeight = newHeight;
+		}
+
+		void UpdateBackground(bool setBkndColorEvenWhenItsDefault)
+		{
+			// Page page = Element;
+
+			// _ = this.ApplyDrawableAsync(page, Page.BackgroundImageSourceProperty, Context, drawable =>
+			// {
+			// 	if (drawable != null)
+			// 	{
+			// 		this.SetBackground(drawable);
+			// 	}
+			// 	else
+			// 	{
+			// 		Brush background = Element.Background;
+
+			// 		if (!Brush.IsNullOrEmpty(background))
+			// 			this.UpdateBackground(background);
+			// 		else
+			// 		{
+			// 			Color backgroundColor = page.BackgroundColor;
+			// 			bool isDefaultBackgroundColor = backgroundColor.IsDefault;
+
+			// 			// A TabbedPage has no background. See Github6384.
+			// 			bool isInShell = page.Parent is BaseShellItem ||
+			// 			(page.Parent is TabbedPage && page.Parent?.Parent is BaseShellItem);
+
+			// 			if (isInShell && isDefaultBackgroundColor)
+			// 			{
+			// 				var color = Forms.IsMarshmallowOrNewer ?
+			// 					Context.Resources.GetColor(AColorRes.BackgroundLight, Context.Theme) :
+			// 					new AColor(ContextCompat.GetColor(Context, AColorRes.BackgroundLight));
+			// 				SetBackgroundColor(color);
+			// 			}
+			// 			else if (!isDefaultBackgroundColor || setBkndColorEvenWhenItsDefault)
+			// 			{
+			// 				SetBackgroundColor(backgroundColor.ToAndroid());
+			// 			}
+			// 		}
+			// 	}
+			// });
+		}
+
+		protected override void OnLayout(bool changed, int l, int t, int r, int b)
+		{
+			base.OnLayout(changed, l, t, r, b);
+		}
+	}
 }

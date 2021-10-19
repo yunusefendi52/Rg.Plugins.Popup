@@ -107,6 +107,7 @@ namespace Rg.Plugins.Popup.Droid.Impl
 
         private static bool GetIsSystemAnimationEnabled()
         {
+            return false;
             float animationScale;
             var context = Popup.Context;
 
