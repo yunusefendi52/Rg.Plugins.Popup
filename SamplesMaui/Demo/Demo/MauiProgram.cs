@@ -44,7 +44,7 @@ namespace Demo
                 })
                 .ConfigureMauiHandlers(handlers =>
                 {
-                    handlers.AddCompatibilityRenderer(typeof(PopupPage), typeof(AppPageRenderer));
+                    handlers.AddCompatibilityRenderer(typeof(PopupPage), typeof(PopupPageRenderer));
                 });
             return builder.Build();
         }
