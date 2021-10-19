@@ -133,7 +133,7 @@ namespace Rg.Plugins.Popup.Droid.Renderers
             if (changed)
             {
                 CurrentElement.Layout(new Rectangle(ContextExtensions.FromPixels(Context, l), ContextExtensions.FromPixels(Context, t), ContextExtensions.FromPixels(Context, r), ContextExtensions.FromPixels(Context, b)));
-                CurrentElement.ForceLayout();
+                // CurrentElement.ForceLayout();
             }
             else
                 CurrentElement.ForceLayout();
